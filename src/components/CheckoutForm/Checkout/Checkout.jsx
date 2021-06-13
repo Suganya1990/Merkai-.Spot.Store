@@ -34,6 +34,12 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     }
     generateToken()
   }, [cart])
+  const test = (data) => {
+    setShippingData(data)
+
+    nextStep()
+  }
+
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1)
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)
 
@@ -45,10 +51,14 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     order.customer ? (
       <div>
         <Typography variant='h5'>
-          Thank you for you purchase, Fist Name Last Name
+          Thank you for you purchase, {order.customer.firstname}{' '}
+          {order.customer.lastname}
         </Typography>
         <Divider className={classes.divider} />
-        <Typography variant='subtitle2'> Order ref: ref</Typography>
+        <Typography variant='subtitle2'>
+          {' '}
+          Order ref: {order.customer.reference}
+        </Typography>
         <br />
         <Button component={Link} to='/' variant='outlined' type='Button'>
           Back To Home
@@ -59,19 +69,18 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         <CircularProgress />
       </div>
     )
-  if (error) {
-    ;<div>
+  if (error)
+    <div>
       <Typography variant='h5'> Error: {error}</Typography>
       <br />
       <Button component={Link} to='/' variant='outlined' type='button'>
         Back To Home
       </Button>
     </div>
-  }
 
   const Form = () =>
     activeStep === 0 ? (
-      <AddressForm checkoutToken={checkoutToken} next={next} />
+      <AddressForm checkoutToken={checkoutToken} test={test} />
     ) : (
       <PaymentForm
         shippingData={shippingData}

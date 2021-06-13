@@ -14,7 +14,7 @@ import { useForm, FormProvider } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import FormInput from './FormInput'
 
-const AddressForm = ({ checkoutToken, next }) => {
+const AddressForm = ({ checkoutToken, test }) => {
   const [shippingCountries, setShippingCountries] = useState([])
   const [shippingCountry, setShippingCountry] = useState('')
   const [shippingSubdivisions, setShippingSubdivisions] = useState([])
@@ -91,7 +91,7 @@ const AddressForm = ({ checkoutToken, next }) => {
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit((data) =>
-            next({
+            test({
               ...data,
               shippingCountry,
               shippingSubdivision,
